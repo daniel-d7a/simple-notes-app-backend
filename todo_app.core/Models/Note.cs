@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace todo_app.core.Models
 {
-    public class Note
+    public class Note : BaseModel
     {
         public int Id { get; set; }
 

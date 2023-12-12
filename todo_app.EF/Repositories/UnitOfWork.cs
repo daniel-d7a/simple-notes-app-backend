@@ -25,9 +25,9 @@ namespace todo_app.EF.Repositories
             _context.Dispose();
         }
 
-        public Task<int> SaveChanges()
+        public async Task<int> SaveChangesAsync()
         {
-            return _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
     }
 }

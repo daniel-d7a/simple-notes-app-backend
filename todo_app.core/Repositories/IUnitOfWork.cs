@@ -11,7 +11,7 @@ namespace todo_app.core.Repositories
     {
         IGenericRepository<Note> Notes { get; } 
 
-        Task<int> SaveChanges();
+        Task<int> SaveChangesAsync();
 
     }
 }

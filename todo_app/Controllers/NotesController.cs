@@ -43,7 +43,7 @@ namespace todo_app.api.Controllers
             };
 
             _unitOfWork.Notes.Create(newNote);
-            await _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetOneNote), new { id = newNote.Id} ,newNote);
         }
@@ -59,7 +59,7 @@ namespace todo_app.api.Controllers
             note.Title = newNote.Title;
             note.Body = newNote.Body;
             _unitOfWork.Notes.Update(note); 
-            await _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
             return Ok(note);
         }
@@ -73,7 +73,7 @@ namespace todo_app.api.Controllers
                 return NotFound();
             }
             _unitOfWork.Notes.Delete(note);
-            await _unitOfWork.SaveChanges();
+            await _unitOfWork.SaveChangesAsync();
 
             return Ok(note);
         }
