@@ -15,3 +15,4 @@ D:\web\angular.net\todo_app\todo_app.EF\obj\Debug\net8.0\ref\todo_app.EF.dll
 D:\web\angular.net\todo_app\todo_app.EF\bin\Debug\net8.0\todo_app.core.dll
 D:\web\angular.net\todo_app\todo_app.EF\bin\Debug\net8.0\todo_app.core.pdb
 D:\web\angular.net\todo_app\todo_app.EF\obj\Debug\net8.0\todo_app.EF.csproj.CopyComplete
+D:\web\angular.net\todo_app\todo_app.EF\obj\Debug\net8.0\todo_app.EF.sourcelink.json

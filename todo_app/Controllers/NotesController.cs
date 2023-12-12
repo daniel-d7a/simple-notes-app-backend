@@ -49,23 +49,19 @@ namespace todo_app.api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Note>> UpdateNote(int id, [FromBody] NoteDto noteDto)
+        public async Task<ActionResult<Note>> UpdateNote(int id, [FromBody]Note newNote)
         {
-            if (await NoteExisits(id) is null)
+            var note = await NoteExisits(id);
+            if (note is null)
             {
                 return NotFound();
             }
-
-            Note newNote = new()
-            {
-                Id = id,
-                Title = noteDto.Title,
-                Body = noteDto.Body,
-            };
-            _unitOfWork.Notes.Update(newNote); 
+            note.Title = newNote.Title;
+            note.Body = newNote.Body;
+            _unitOfWork.Notes.Update(note); 
             await _unitOfWork.SaveChanges();
 
-            return Ok(newNote);
+            return Ok(note);
         }
 
         [HttpDelete("{id}")]
