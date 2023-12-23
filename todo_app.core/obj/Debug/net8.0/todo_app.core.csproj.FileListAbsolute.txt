@@ -10,3 +10,4 @@ D:\web\angular.net\todo_app\todo_app.core\obj\Debug\net8.0\refint\todo_app.core.
 D:\web\angular.net\todo_app\todo_app.core\obj\Debug\net8.0\todo_app.core.pdb
 D:\web\angular.net\todo_app\todo_app.core\obj\Debug\net8.0\ref\todo_app.core.dll
 D:\web\angular.net\todo_app\todo_app.core\obj\Debug\net8.0\todo_app.core.sourcelink.json
+D:\web\angular.net\todo_app\todo_app.core\obj\Debug\net8.0\todo_app.core.csproj.AssemblyReference.cache

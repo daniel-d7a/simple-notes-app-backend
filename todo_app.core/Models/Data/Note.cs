@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace todo_app.core.Models
+namespace todo_app.core.Models.Data
 {
     public class Note : BaseModel
     {

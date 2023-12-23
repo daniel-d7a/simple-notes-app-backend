@@ -259,3 +259,9 @@ D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\runtimes\win\lib\net7.0\Sy
 D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
 D:\web\angular.net\todo_app\todo_app\obj\Debug\net8.0\todo_app.api.sourcelink.json
+D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\EntityFramework.SqlServer.dll
+D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\EntityFramework.dll
+D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\Microsoft.AspNet.Identity.Core.dll
+D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\Microsoft.AspNet.Identity.EntityFramework.dll

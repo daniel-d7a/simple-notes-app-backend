@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace todo_app.core.DTOs
 {
-    public class NoteDto
+    public class NoteDTO
     {
         [MaxLength(100)]
         public string? Title { get; set; }

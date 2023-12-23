@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using todo_app.core.Models;
+using todo_app.core.Models.Data;
 using todo_app.core.Repositories;
 
 namespace todo_app.EF.Repositories

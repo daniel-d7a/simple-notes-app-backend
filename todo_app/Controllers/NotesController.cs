@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using todo_app.core.Models;
 using todo_app.core.Repositories;
 using todo_app.core.DTOs;
+using todo_app.core.Models.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace todo_app.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class NotesController : ControllerBase 
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -34,7 +36,7 @@ namespace todo_app.api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Note>> CreateNote([FromBody] NoteDto noteDto)
+        public async Task<ActionResult<Note>> CreateNote([FromBody] NoteDTO noteDto)
         {
             Note newNote = new()
             {
