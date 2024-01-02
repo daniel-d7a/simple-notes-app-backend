@@ -1,24 +1,24 @@
-using Microsoft.EntityFrameworkCore;
-using todo_app.core.Repositories;
-using todo_app.EF;
-using todo_app.EF.Repositories;
-using Microsoft.AspNetCore.Identity;
-using todo_app.core.Services;
-using todo_app.EF.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using todo_app.core.Models.Auth;
+using todo_app.core.Repositories;
+using todo_app.core.Services;
+using todo_app.EF;
+using todo_app.EF.Repositories;
+using todo_app.EF.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
+// Add services to the container
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddIdentity<UserModel, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -48,6 +48,8 @@ builder.Services.AddAuthentication(auth =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"]))
     };
 });
+builder.Logging.AddConsole();
+builder.Logging.ClearProviders();
 
 var app = builder.Build();
 

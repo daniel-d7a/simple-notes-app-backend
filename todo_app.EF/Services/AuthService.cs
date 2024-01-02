@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Identity.Client;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using todo_app.core.Constants;
@@ -14,9 +11,9 @@ using todo_app.core.Services;
 
 namespace todo_app.EF.Services
 {
-    public class AuthService(UserManager<IdentityUser> userManager, IConfiguration configuration) : IAuthService
+    public class AuthService(UserManager<UserModel> userManager, IConfiguration configuration) : IAuthService
     {
-        private async Task<JwtSecurityToken> CreateToken(IdentityUser user)
+        private async Task<JwtSecurityToken> CreateToken(UserModel user)
         {
             var userClaims = await userManager.GetClaimsAsync(user);
             var userRoles = await userManager.GetRolesAsync(user);
@@ -59,28 +56,32 @@ namespace todo_app.EF.Services
         {
             if(await userManager.FindByEmailAsync(model.Email) is not null)
             {
-                return new AuthResponse {
+                return new AuthResponse
+                {
                     Message = "This Email Already Exists"
                 };
             }
 
             if(await userManager.FindByNameAsync(model.Username) is not null)
             {
-                return new AuthResponse {
+                return new AuthResponse
+                {
                     Message = "This Username Already Exists"
                 };
             }
             var user =
-                new IdentityUser {
-                UserName = model.Username,
-                Email = model.Email
-            };
+                new UserModel
+                {
+                    UserName = model.Username,
+                    Email = model.Email
+                };
             var result = await userManager.CreateAsync(user, model.Password);
 
             if(!result.Succeeded)
             {
                 Console.WriteLine($"result {result}");
-                return new AuthResponse {
+                return new AuthResponse
+                {
                     Message = "User was not created",
                     Errors = result.Errors.Select(e => e.Description).ToList(),
                 };
@@ -90,8 +91,9 @@ namespace todo_app.EF.Services
 
             var token = await CreateToken(user);
 
-            return new AuthResponse {
-                User = new ()
+            return new AuthResponse
+            {
+                User = new()
                 {
                     Email = user.Email,
                     Username = user.UserName,
@@ -107,7 +109,7 @@ namespace todo_app.EF.Services
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
             };
         }
-    
+
         public async Task<AuthResponse> LoginAsync(LoginModel model)
         {
             var user = await userManager.FindByEmailAsync(model.Email);
@@ -123,7 +125,8 @@ namespace todo_app.EF.Services
             var token = await CreateToken(user);
             var roles = await userManager.GetRolesAsync(user);
 
-            return new AuthResponse {
+            return new AuthResponse
+            {
                 User = new()
                 {
                     Email = user.Email,
@@ -141,6 +144,6 @@ namespace todo_app.EF.Services
             };
 
         }
-    
+
     }
 }

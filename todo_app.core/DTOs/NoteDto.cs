@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace todo_app.core.DTOs
+namespace todo_app.core.DTOs;
+public class NoteDTO
 {
-    public class NoteDTO
-    {
-        [MaxLength(100)]
-        public string? Title { get; set; }
+    [MaxLength(100)]
+    public string? Title { get; set; }
 
-        public string? Body { get; set; }
-    }
+    public string? Body { get; set; }
+
+    [Required]
+    public string UserId { get; set; }
 }
