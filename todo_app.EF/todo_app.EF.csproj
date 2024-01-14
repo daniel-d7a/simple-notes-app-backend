@@ -20,5 +20,4 @@
   <ItemGroup>
     <ProjectReference Include="..\todo_app.core\todo_app.core.csproj" />
   </ItemGroup>
-
 </Project>

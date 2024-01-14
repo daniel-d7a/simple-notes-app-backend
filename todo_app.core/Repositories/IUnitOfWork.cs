@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using todo_app.core.Models.Data;
+﻿using todo_app.core.Models.Data;
 
 namespace todo_app.core.Repositories
 {
-    public interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<Note> Notes { get; } 
-
-        Task<int> SaveChangesAsync();
-
+        IGenericRepository<Note> Notes { get; }
+        IGenericRepository<Todo> Todos { get; }
+        IGenericRepository<TodoEntry> TodoEntries { get; }
+        int SaveChanges();
     }
 }

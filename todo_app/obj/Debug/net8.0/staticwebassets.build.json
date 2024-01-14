@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Et/O09knt5ADESwob5/DHSBDbZeiaxC+pZHksRvRmwo=",
+  "Hash": "ix8Eh84kCpwLHCCGbm2J+z4UJJ/lrvOHZiwGNlmqVJ4=",
   "Source": "todo_app.api",
   "BasePath": "_content/todo_app.api",
   "Mode": "Default",
@@ -47,10 +47,10 @@
       "OriginalItemSpec": "C:\\Users\\EYAD\\.nuget\\packages\\microsoft.aspnetcore.components.quickgrid\\8.0.0\\staticwebassets\\QuickGrid.razor.js"
     },
     {
-      "Identity": "D:\\web\\angular.net\\todo_app\\todo_app\\obj\\Debug\\net8.0\\scopedcss\\bundle\\todo_app.api.styles.css",
+      "Identity": "d:\\web\\angular.net\\todo_app\\todo_app\\obj\\Debug\\net8.0\\scopedcss\\bundle\\todo_app.api.styles.css",
       "SourceId": "todo_app.api",
       "SourceType": "Computed",
-      "ContentRoot": "D:\\web\\angular.net\\todo_app\\todo_app\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "d:\\web\\angular.net\\todo_app\\todo_app\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/todo_app.api",
       "RelativePath": "todo_app.api.styles.css",
       "AssetKind": "All",
@@ -63,7 +63,7 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "D:\\web\\angular.net\\todo_app\\todo_app\\obj\\Debug\\net8.0\\scopedcss\\bundle\\todo_app.api.styles.css"
+      "OriginalItemSpec": "d:\\web\\angular.net\\todo_app\\todo_app\\obj\\Debug\\net8.0\\scopedcss\\bundle\\todo_app.api.styles.css"
     }
   ]
 }

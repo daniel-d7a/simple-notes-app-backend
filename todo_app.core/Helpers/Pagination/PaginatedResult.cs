@@ -1,5 +1,5 @@
 ﻿namespace todo_app.core.Helpers.Pagination;
-public class PaginatedResult <T>
+public class PaginatedResult<T>
 {
     public int Page { get; private set; }
     public int PageSize { get; private set; }

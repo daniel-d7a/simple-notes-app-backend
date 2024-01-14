@@ -265,3 +265,5 @@ D:\web\angular.net\todo_app\todo_app\obj\Debug\net8.0\refint\todo_app.api.dll
 D:\web\angular.net\todo_app\todo_app\obj\Debug\net8.0\todo_app.api.pdb
 D:\web\angular.net\todo_app\todo_app\obj\Debug\net8.0\todo_app.api.genruntimeconfig.cache
 D:\web\angular.net\todo_app\todo_app\obj\Debug\net8.0\ref\todo_app.api.dll
+D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\FluentValidation.dll
+D:\web\angular.net\todo_app\todo_app\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll

@@ -12,7 +12,7 @@ namespace todo_app.EF.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
-                table:"AspNetRoles",
+                table: "AspNetRoles",
                 columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
                 values: new[]
                 {
@@ -22,8 +22,8 @@ namespace todo_app.EF.Migrations
                     Guid.NewGuid().ToString(),
             });
             migrationBuilder.InsertData(
-                table:"AspNetRoles",
-                columns:new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
+                table: "AspNetRoles",
+                columns: new[] { "Id", "Name", "NormalizedName", "ConcurrencyStamp" },
                 values: new[]
                 {
                 Guid.NewGuid().ToString(),

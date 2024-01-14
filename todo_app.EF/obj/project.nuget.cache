@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "EW+LhvGNJJKuDdaXUwi1+6cBM/hxUvziPTtLYl6fgSa1MNkcqQM+2sOF1iHKcHppt22NpPdHUxvzq0QE2Gunpg==",
+  "dgSpecHash": "PRFW5fSZUTmy/iwcIrRK4WlUhyirikr3xbMo7/bWPslwxowvbJp9rmTTsLidVyP7wDayq0WXJ9KcM9uwlevtYg==",
   "success": true,
   "projectFilePath": "D:\\web\\angular.net\\todo_app\\todo_app.EF\\todo_app.EF.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\EYAD\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\EYAD\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
     "C:\\Users\\EYAD\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
+    "C:\\Users\\EYAD\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
+    "C:\\Users\\EYAD\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.9.0\\fluentvalidation.dependencyinjectionextensions.11.9.0.nupkg.sha512",
     "C:\\Users\\EYAD\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\EYAD\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.4\\microsoft.aspnet.identity.core.2.2.4.nupkg.sha512",
     "C:\\Users\\EYAD\\.nuget\\packages\\microsoft.aspnet.identity.entityframework\\2.2.4\\microsoft.aspnet.identity.entityframework.2.2.4.nupkg.sha512",

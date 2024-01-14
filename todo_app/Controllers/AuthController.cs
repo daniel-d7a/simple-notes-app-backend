@@ -14,7 +14,7 @@ namespace todo_app.api.Controllers
         {
             var result = await _authService.RegisterAsync(model);
 
-            if(!result.IsAuthenticated)
+            if (!result.IsAuthenticated)
             {
                 return BadRequest(result);
             }
@@ -25,9 +25,8 @@ namespace todo_app.api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginModel model)
         {
-
             var result = await _authService.LoginAsync(model);
-            if(!result.IsAuthenticated)
+            if (!result.IsAuthenticated)
             {
                 return BadRequest(result);
             }

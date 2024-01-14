@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "dgLdpptZOaOtxODEGIcc5/fZmjsMGSb+XscXfNrrxiejuOX+H9WVrk3NbIj/Qp9LzlNghLtvUx9+TX9Xv4MwaA==",
+  "dgSpecHash": "q00ADEcQxOdcoSL5seFpFmDXM9esqZS4dGsiFHhy0CoufkolVedgmg6ZjwXM0wEpzXiFGRNfIpkbLnnGvGmF6A==",
   "success": true,
   "projectFilePath": "D:\\web\\angular.net\\todo_app\\todo_app.core\\todo_app.core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\EYAD\\.nuget\\packages\\entityframework\\6.1.0\\entityframework.6.1.0.nupkg.sha512",
+    "C:\\Users\\EYAD\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
+    "C:\\Users\\EYAD\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.9.0\\fluentvalidation.dependencyinjectionextensions.11.9.0.nupkg.sha512",
     "C:\\Users\\EYAD\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.4\\microsoft.aspnet.identity.core.2.2.4.nupkg.sha512",
     "C:\\Users\\EYAD\\.nuget\\packages\\microsoft.aspnet.identity.entityframework\\2.2.4\\microsoft.aspnet.identity.entityframework.2.2.4.nupkg.sha512",
     "C:\\Users\\EYAD\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\8.0.0\\microsoft.aspnetcore.cryptography.internal.8.0.0.nupkg.sha512",
