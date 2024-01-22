@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
+using todo_app.api;
 using todo_app.core.Models.Auth;
 using todo_app.core.Models.Utils;
 using todo_app.core.Repositories;
@@ -83,6 +84,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionHandler>();
 app.UseCors();
 app.UseHttpsRedirection();
 

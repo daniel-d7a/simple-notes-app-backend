@@ -11,6 +11,4 @@ public class BaseQueryParams
         get => pageSize;
         set => pageSize = value < MAX_PAGES ? value : MAX_PAGES;
     }
-
-    public string Type { get; set; } = "";
 }

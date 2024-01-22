@@ -2,5 +2,5 @@
 
 public class Types
 {
-    public static readonly string Favourite = "favourite";
+    public const string Favourite = "favourite";
 }

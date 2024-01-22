@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using todo_app.core.Models.Auth;
 
 namespace todo_app.core.Models
@@ -13,7 +14,7 @@ namespace todo_app.core.Models
         public bool IsFavourite { get; set; }
 
         [Required]
-        public string UserId { get; set; }
-        public UserModel User { get; set; }
+        public string UserId { get; set; } = "";
+        public UserModel User { get; set; } = null!;
     }
 }

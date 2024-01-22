@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using todo_app.EF;
 
@@ -11,9 +12,11 @@ using todo_app.EF;
 namespace todo_app.EF.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240120020007_addLabels")]
+    partial class addLabels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -175,7 +178,7 @@ namespace todo_app.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Labels", (string)null);
+                    b.ToTable("Labels");
                 });
 
             modelBuilder.Entity("todo_app.core.LabelNote", b =>
@@ -190,7 +193,7 @@ namespace todo_app.EF.Migrations
 
                     b.HasIndex("NoteId");
 
-                    b.ToTable("LabelNotes", (string)null);
+                    b.ToTable("LabelNotes");
                 });
 
             modelBuilder.Entity("todo_app.core.LabelTodo", b =>
@@ -205,7 +208,7 @@ namespace todo_app.EF.Migrations
 
                     b.HasIndex("TodoId");
 
-                    b.ToTable("LabelTodos", (string)null);
+                    b.ToTable("LabelTodos");
                 });
 
             modelBuilder.Entity("todo_app.core.Models.Auth.UserModel", b =>
@@ -305,7 +308,7 @@ namespace todo_app.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Notes", (string)null);
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("todo_app.core.Models.Data.Todo", b =>
@@ -340,7 +343,7 @@ namespace todo_app.EF.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Todos", (string)null);
+                    b.ToTable("Todos");
                 });
 
             modelBuilder.Entity("todo_app.core.Models.Data.TodoEntry", b =>
@@ -372,7 +375,7 @@ namespace todo_app.EF.Migrations
 
                     b.HasIndex("TodoId");
 
-                    b.ToTable("TodoEntries", (string)null);
+                    b.ToTable("TodoEntries");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

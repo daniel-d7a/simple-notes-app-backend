@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using todo_app.core;
 using todo_app.core.Models;
 using todo_app.core.Models.Auth;
 using todo_app.core.Models.Data;
@@ -28,8 +29,7 @@ namespace todo_app.EF
                         )
                     )
                     .Build();
-                // D:\web\angular.net\todo_app\todo_app\appsettings.json
-                string connectionString = configuration.GetConnectionString("DefaultConnection");
+                string connectionString = configuration.GetConnectionString("DefaultConnection")!;
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
@@ -54,6 +54,41 @@ namespace todo_app.EF
                 .HasMany(t => t.Entries)
                 .WithOne(e => e.Todo)
                 .HasForeignKey(t => t.TodoId);
+
+            modelBuilder
+                .Entity<UserModel>()
+                .HasMany(u => u.Labels)
+                .WithOne(l => l.User)
+                .HasForeignKey(l => l.UserId);
+
+            modelBuilder.Entity<LabelNote>().HasKey(l => new { l.LabelId, l.NoteId });
+            modelBuilder
+                .Entity<LabelNote>()
+                .HasOne(ln => ln.Note)
+                .WithMany(ln => ln.LabelData)
+                .HasForeignKey(ln => ln.NoteId)
+                .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder
+                .Entity<LabelNote>()
+                .HasOne(ln => ln.Label)
+                .WithMany(ln => ln.LabelNotes)
+                .HasForeignKey(ln => ln.LabelId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<LabelTodo>().HasKey(l => new { l.LabelId, l.TodoId });
+            modelBuilder
+                .Entity<LabelTodo>()
+                .HasOne(ln => ln.Todo)
+                .WithMany(ln => ln.LabelData)
+                .HasForeignKey(ln => ln.TodoId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
+                .Entity<LabelTodo>()
+                .HasOne(ln => ln.Label)
+                .WithMany(ln => ln.LabelTodos)
+                .HasForeignKey(ln => ln.LabelId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
 
         public override int SaveChanges()
@@ -82,5 +117,8 @@ namespace todo_app.EF
         public DbSet<Note> Notes { get; set; }
         public DbSet<Todo> Todos { get; set; }
         public DbSet<TodoEntry> TodoEntries { get; set; }
+        public DbSet<Label> Labels { get; set; }
+        public DbSet<LabelNote> LabelNotes { get; set; }
+        public DbSet<LabelTodo> LabelTodos { get; set; }
     }
 }

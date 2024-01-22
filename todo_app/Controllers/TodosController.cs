@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using todo_app.core;
 using todo_app.core.DTOs;
 using todo_app.core.Helpers.Pagination;
@@ -18,25 +17,61 @@ public class TodosController(IUnitOfWork unitOfWork) : SharedController
 {
     [HttpGet]
     public ActionResult<GenericResponse<PaginatedResult<Todo>>> GetAllTodos(
-        [FromQuery] BaseQueryParams queryParams
+        [FromQuery] BaseQueryParams queryParams,
+        string? type,
+        string? label
     )
     {
         var res = new GenericResponse<PaginatedResult<Todo>>();
         var userId = GetUserId();
         PaginatedResult<Todo> todos;
-
-        if (string.IsNullOrEmpty(queryParams.Type))
+        if (string.IsNullOrEmpty(type) && string.IsNullOrEmpty(label))
         {
-            todos = unitOfWork.Todos.GetAllByUserPaginated(userId, queryParams);
+            todos = unitOfWork.Todos.GetAllByUserWithLabelsPaginated(
+                userId,
+                queryParams,
+                [t => t.Entries]
+            );
         }
-        else if (queryParams.Type != Types.Favourite)
+        else if (!string.IsNullOrEmpty(type))
         {
-            res.Error = "Unknown type";
-            return NotFound(res);
+            switch (type)
+            {
+                case Types.Favourite:
+                    todos = unitOfWork.Todos.GetAllByUserWithLabelsPaginated(
+                        userId,
+                        queryParams,
+                        [t => t.Entries],
+                        t => t.IsFavourite
+                    );
+                    break;
+                default:
+                    res.Error = "Unknown type";
+                    return UnprocessableEntity(res);
+            }
+        }
+        else if (!string.IsNullOrEmpty(label))
+        {
+            var userLabel = unitOfWork
+                .Labels.GetAllByUser(userId)
+                .FirstOrDefault(l => l.Name == label);
+            if (userLabel is null)
+            {
+                res.Message = "label not found";
+                return NotFound(res);
+            }
+
+            todos = unitOfWork.Todos.GetAllByUserWithLabelsPaginated(
+                userId,
+                queryParams,
+                [t => t.Entries],
+                t => t.LabelData.Any(ld => ld.LabelId == userLabel.Id)
+            );
         }
         else
         {
-            todos = unitOfWork.Todos.GetAllByUserPaginated(userId, queryParams, n => n.IsFavourite);
+            res.Error = "Unknown type";
+            return UnprocessableEntity(res);
         }
 
         res.IsSuccess = true;
@@ -52,7 +87,7 @@ public class TodosController(IUnitOfWork unitOfWork) : SharedController
 
         var userId = GetUserId();
 
-        var todo = unitOfWork.Todos.GetOneById(id, t => t.Entries);
+        var todo = unitOfWork.Todos.GetWithLabels(id, t => t.Entries);
         if (todo is null)
         {
             res.Message = "no todo found with this id";
@@ -68,6 +103,91 @@ public class TodosController(IUnitOfWork unitOfWork) : SharedController
         res.Message = "user todo fetched successfully";
         res.Data = todo;
         return Ok(res);
+    }
+
+    [HttpPost("{id}/label")]
+    public ActionResult<GenericResponse<Todo>> AddLabelToTodo(int id, [FromBody] LabelDTO label)
+    {
+        var res = new GenericResponse<Todo>();
+        var userId = GetUserId();
+
+        var todo = unitOfWork.Todos.GetWithLabels(id);
+
+        if (label.Id is null)
+        {
+            res.Error = "label id is null";
+            return UnprocessableEntity(res);
+        }
+
+        var labelToAdd = unitOfWork.Labels.GetOneById((int)label.Id!);
+
+        if (todo is null)
+        {
+            res.Message = "no todo found with this id";
+            return NotFound(res);
+        }
+
+        if (labelToAdd is null)
+        {
+            res.Error = "label not found";
+            return UnprocessableEntity(res);
+        }
+
+        if (todo.UserId != userId || labelToAdd.UserId != userId)
+        {
+            return Forbid();
+        }
+
+        if (!todo.Labels.Any(l => l.Id == labelToAdd.Id))
+        {
+            unitOfWork.LabelTodo.Create(new() { LabelId = labelToAdd.Id, TodoId = todo.Id });
+            unitOfWork.SaveChanges();
+        }
+        res.IsSuccess = true;
+        res.Data = todo;
+        res.Message = "label added to todo successfully";
+
+        return res;
+    }
+
+    [HttpDelete("{id}/label/{labelId}")]
+    public ActionResult<GenericResponse<Todo>> RemoveLabelFromTodo(int id, int labelId)
+    {
+        var res = new GenericResponse<Todo>();
+        var userId = GetUserId();
+
+        var todo = unitOfWork.Todos.GetWithLabels(id, t => t.Entries);
+        var labelToRemove = unitOfWork.Labels.GetOneById(labelId);
+
+        if (todo is null)
+        {
+            res.Message = "no todo found with this id";
+            return NotFound(res);
+        }
+
+        if (labelToRemove is null)
+        {
+            res.Error = "label not found";
+            return UnprocessableEntity(res);
+        }
+
+        if (todo.UserId != userId || labelToRemove.UserId != userId)
+        {
+            return Forbid();
+        }
+
+        var labelTodoToRemove = unitOfWork.LabelTodo.GetByCompoundKey(labelId, id);
+
+        if (todo.Labels.Any(l => l.Id == labelToRemove.Id))
+        {
+            unitOfWork.LabelTodo.Delete(labelTodoToRemove);
+            unitOfWork.SaveChanges();
+        }
+        res.IsSuccess = true;
+        res.Data = todo;
+        res.Message = "label removed from todo successfully";
+
+        return res;
     }
 
     [HttpPost]
@@ -102,7 +222,7 @@ public class TodosController(IUnitOfWork unitOfWork) : SharedController
         res.Data = newTodo;
         res.IsSuccess = true;
 
-        return CreatedAtAction(nameof(CreateTodo), new { id = newTodo.Id }, res);
+        return CreatedAtAction(nameof(GetOneTodo), new { id = newTodo.Id }, res);
     }
 
     [HttpDelete("{id}")]
@@ -122,6 +242,11 @@ public class TodosController(IUnitOfWork unitOfWork) : SharedController
         {
             return Forbid();
         }
+
+        var labelTodosWithThisLabel = unitOfWork.LabelTodo.GetAll(lt => lt.TodoId == todo.Id);
+
+        unitOfWork.LabelTodo.DeleteRange(labelTodosWithThisLabel);
+        unitOfWork.SaveChanges();
 
         unitOfWork.Todos.Delete(todo);
         unitOfWork.SaveChanges();

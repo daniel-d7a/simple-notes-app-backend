@@ -12,7 +12,7 @@
     <WebStackScaffolding_DbContextTypeFullName>todo_app.EF.ApplicationDbContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
     <WebStackScaffolding_DbContextDialogWidth>650</WebStackScaffolding_DbContextDialogWidth>
-    <NameOfLastUsedPublishProfile>D:\web\angular.net\todo_app\todo_app\Properties\PublishProfiles\eyadalsherif-001-site1 - Web Deploy1.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>D:\web\angular.net\todo_app\todo_app\Properties\PublishProfiles\eyadalsherif-001-site1 - Web Deploy3.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

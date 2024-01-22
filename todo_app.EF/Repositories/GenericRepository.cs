@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using todo_app.core;
 using todo_app.core.Helpers.Pagination;
 using todo_app.core.Helpers.QueryParams;
 using todo_app.core.Repositories;
@@ -31,6 +32,43 @@ public class GenericRepository<T>(ApplicationDbContext _context) : IGenericRepos
         _context.Set<T>().RemoveRange(data);
     }
 
+    public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter = null)
+    {
+        var items = _context.Set<T>().AsQueryable();
+
+        if (filter is not null)
+        {
+            items = items.Where(filter);
+        }
+        return items;
+    }
+
+    public IEnumerable<T> GetAllByUser(
+        string userId,
+        Expression<Func<T, bool>>? filter = null,
+        Expression<Func<T, object>>? orderBy = null,
+        string orderDirection = OrderDirections.Ascending
+    )
+    {
+        var items = _context
+            .Set<T>()
+            .Where(e => EntityFramework.Property<string>(e, "UserId") == userId);
+
+        if (filter is not null)
+        {
+            items = items.Where(filter);
+        }
+
+        if (orderBy is not null)
+        {
+            if (orderDirection == OrderDirections.Ascending)
+                items = items.OrderBy(orderBy);
+            else
+                items = items.OrderByDescending(orderBy);
+        }
+        return items;
+    }
+
     public PaginatedResult<T> GetAllByUserPaginated(
         string userId,
         BaseQueryParams queryParams,
@@ -38,7 +76,9 @@ public class GenericRepository<T>(ApplicationDbContext _context) : IGenericRepos
         params Expression<Func<T, object>>[] includes
     )
     {
-        var items = _context.Set<T>().AsQueryable();
+        var items = _context
+            .Set<T>()
+            .Where(e => EntityFramework.Property<string>(e, "UserId") == userId);
 
         foreach (var include in includes)
         {
@@ -50,19 +90,29 @@ public class GenericRepository<T>(ApplicationDbContext _context) : IGenericRepos
             items = items.Where(filter);
         }
 
-        items = items
-            .Where(e => EntityFramework.Property<string>(e, "UserId") == userId)
-            .OrderBy(e => EntityFramework.Property<DateTime>(e, "CreatedAt"));
+        items = items.OrderByDescending(e => EntityFramework.Property<DateTime>(e, "CreatedAt"));
         return PaginatedResult<T>.ToPaginatedList(items, queryParams.Page, queryParams.PageSize);
     }
 
-    public T GetOneById(int id, params Expression<Func<T, object>>[] includes)
+    public T? GetOneById(
+        int id,
+        Expression<Func<T, object>>? includes = null,
+        Expression<Func<object, object>>? thenIncludes = null
+    )
     {
         var itemsIncluding = _context.Set<T>().AsQueryable();
-        foreach (var include in includes)
+        if (includes is not null)
         {
-            itemsIncluding = itemsIncluding.Include(include);
+            if (thenIncludes is not null)
+            {
+                itemsIncluding = itemsIncluding.Include(includes).ThenInclude(thenIncludes);
+            }
+            else
+            {
+                itemsIncluding = itemsIncluding.Include(includes);
+            }
         }
+
         return itemsIncluding.FirstOrDefault(e => EntityFramework.Property<int>(e, "Id") == id);
     }
 

@@ -4,9 +4,12 @@ namespace todo_app.core.Repositories
 {
     public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<Note> Notes { get; }
-        IGenericRepository<Todo> Todos { get; }
+        IWithLabelRepository<Note, LabelNote> Notes { get; }
+        IWithLabelRepository<Todo, LabelTodo> Todos { get; }
         IGenericRepository<TodoEntry> TodoEntries { get; }
+        IGenericRepository<Label> Labels { get; }
+        ILabelJoinRepository<LabelNote> LabelNote { get; }
+        ILabelJoinRepository<LabelTodo> LabelTodo { get; }
         int SaveChanges();
     }
 }
